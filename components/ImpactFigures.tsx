@@ -1,20 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import {
-  ChevronLeft,
-  ChevronRight,
   Users,
   TractorIcon as Farm,
   SproutIcon as Seedling,
-  DollarSign,
+  IndianRupeeIcon,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 const impactData = [
   { icon: Users, title: "Communities Served", value: "500+" },
   { icon: Farm, title: "Acres Improved", value: "100,000+" },
   { icon: Seedling, title: "Sustainable Practices Implemented", value: "50+" },
-  { icon: DollarSign, title: "Economic Impact", value: "$10M+" },
+  { icon: IndianRupeeIcon, title: "Economic Impact", value: "$1M+" },
 ];
 
 const focusAreas = [
@@ -36,13 +36,17 @@ const focusAreas = [
   },
 ];
 
-export function ImpactFigures() {
+const ImpactFigures = forwardRef<HTMLElement>((props, ref) => {
   const [currentFocusIndex, setCurrentFocusIndex] = useState(0);
 
   return (
-    <section id="impact" className="py-16 bg-white">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-natural-800 mb-12">
+    <section
+      ref={ref}
+      id="impact"
+      className="min-h-screen flex items-center justify-center bg-white snap-start"
+    >
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-4xl font-bold text-center text-natural-800 mb-12">
           Our Impact
         </h2>
         <div className="grid md:grid-cols-4 gap-8 mb-16">
@@ -101,4 +105,7 @@ export function ImpactFigures() {
       </div>
     </section>
   );
-}
+});
+
+ImpactFigures.displayName = "ImpactFigures";
+export default ImpactFigures;

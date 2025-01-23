@@ -1,10 +1,15 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import { forwardRef } from "react";
 
-export function Connect() {
+const Connect = forwardRef<HTMLElement>((props, ref) => {
   return (
-    <section id="connect" className="py-16 bg-natural-100">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-natural-800 mb-12">
+    <section
+      ref={ref}
+      id="connect"
+      className="min-h-screen flex items-center justify-center bg-natural-100 snap-start"
+    >
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-4xl font-bold text-center text-natural-800 mb-12">
           Connect With Us
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
@@ -27,4 +32,6 @@ export function Connect() {
       </div>
     </section>
   );
-}
+});
+Connect.displayName = "Connect";
+export default Connect;

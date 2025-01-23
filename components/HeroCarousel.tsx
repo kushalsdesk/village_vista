@@ -23,7 +23,7 @@ const items: Item[] = [
   },
 ];
 
-export function HeroCarousel() {
+const HeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -58,4 +58,6 @@ export function HeroCarousel() {
       ))}
     </div>
   );
-}
+};
+
+export default HeroCarousel;

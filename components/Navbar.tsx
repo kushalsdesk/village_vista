@@ -1,42 +1,50 @@
-import Link from "next/link";
+"use client";
+
+import { useState, useEffect } from "react";
 import { Leaf } from "lucide-react";
 
-export function Navbar() {
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-natural-600 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="flex items-center space-x-2">
-          <Leaf className="h-6 w-6" />
-          <span className="text-xl font-bold">Village Vista</span>
-        </Link>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-natural-600 shadow-md" : "bg-transparent"}`}
+    >
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="#" className="flex items-center space-x-2">
+          <Leaf
+            className={`h-6 w-6 ${isScrolled ? "text-white" : "text-natural-600"}`}
+          />
+          <span
+            className={`text-xl font-bold ${isScrolled ? "text-white" : "text-natural-800"}`}
+          >
+            AgriRural
+          </span>
+        </a>
         <ul className="flex space-x-4">
-          <li>
-            <Link href="#about" className="hover:text-natural-200">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link href="#impact" className="hover:text-natural-200">
-              Impact
-            </Link>
-          </li>
-          <li>
-            <Link href="#updates" className="hover:text-natural-200">
-              Updates
-            </Link>
-          </li>
-          <li>
-            <Link href="#team" className="hover:text-natural-200">
-              Team
-            </Link>
-          </li>
-          <li>
-            <Link href="#connect" className="hover:text-natural-200">
-              Connect
-            </Link>
-          </li>
+          {["About", "Impact", "Updates", "Team", "Connect"].map((item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase()}`}
+                className={`text-sm font-medium hover:text-natural-300 transition-colors ${isScrolled ? "text-white" : "text-natural-800"}`}
+              >
+                {item}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

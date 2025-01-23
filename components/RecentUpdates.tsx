@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { forwardRef, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -32,7 +32,7 @@ const updates = [
   },
 ];
 
-export function RecentUpdates() {
+const RecentUpdates = forwardRef<HTMLElement>((props, ref) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -47,15 +47,19 @@ export function RecentUpdates() {
   };
 
   return (
-    <section id="updates" className="py-16 bg-natural-100">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-natural-800 mb-8">
+    <section
+      ref={ref}
+      id="updates"
+      className="min-h-screen flex items-center justify-center bg-natural-100 snap-start"
+    >
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-4xl font-bold text-center text-natural-800 mb-12">
           Recent Updates
         </h2>
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto space-x-4 scrollbar-hide"
+            className="flex overflow-x-auto space-x-4 scrollbar-hide pb-4"
           >
             {updates.map((update, index) => (
               <div key={index} className="flex-none w-64">
@@ -93,4 +97,7 @@ export function RecentUpdates() {
       </div>
     </section>
   );
-}
+});
+
+RecentUpdates.displayName = "RecentUpdates";
+export default RecentUpdates;

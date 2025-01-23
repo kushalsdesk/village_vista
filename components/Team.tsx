@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import Image from "next/image";
 
 const teamMembers = [
@@ -23,18 +24,22 @@ const teamMembers = [
   },
 ];
 
-export function Team() {
+const Team = forwardRef<HTMLElement>((props, ref) => {
   return (
-    <section id="team" className="py-16 bg-white">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-natural-800 mb-12">
+    <section
+      ref={ref}
+      id="team"
+      className="min-h-screen flex items-center justify-center bg-white snap-start"
+    >
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-4xl font-bold text-center text-natural-800 mb-12">
           Meet Our Team
         </h2>
         <div className="grid md:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
             <div key={index} className="text-center">
               <Image
-                src={member.image || "/placeholder.svg"}
+                src={member.image || "/placeholder.svg?height=200&width=200"}
                 alt={member.name}
                 width={200}
                 height={200}
@@ -50,4 +55,7 @@ export function Team() {
       </div>
     </section>
   );
-}
+});
+
+Team.displayName = "Team";
+export default Team;
