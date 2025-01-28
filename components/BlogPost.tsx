@@ -12,14 +12,14 @@ interface BlogPostProps {
   tags: string[];
 }
 
-const BlogPost = ({
+export default function BlogPost({
   title,
   author,
   date,
   content,
   image,
   tags,
-}: BlogPostProps) => {
+}: BlogPostProps) {
   return (
     <Card className="max-w-2xl mx-auto my-8 overflow-hidden bg-white shadow-lg">
       <Image
@@ -61,6 +61,4 @@ const BlogPost = ({
       </CardContent>
     </Card>
   );
-};
-
-export default BlogPost;
+}

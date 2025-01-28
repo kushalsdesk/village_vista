@@ -1,20 +1,20 @@
 "use client";
 
-import { forwardRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Users,
   TractorIcon as Farm,
   SproutIcon as Seedling,
-  IndianRupeeIcon,
   ChevronLeft,
   ChevronRight,
+  IndianRupee,
 } from "lucide-react";
 
 const impactData = [
   { icon: Users, title: "Communities Served", value: "500+" },
   { icon: Farm, title: "Acres Improved", value: "100,000+" },
   { icon: Seedling, title: "Sustainable Practices Implemented", value: "50+" },
-  { icon: IndianRupeeIcon, title: "Economic Impact", value: "$1M+" },
+  { icon: IndianRupee, title: "Economic Impact", value: "1M+" },
 ];
 
 const focusAreas = [
@@ -36,8 +36,38 @@ const focusAreas = [
   },
 ];
 
-const ImpactFigures = forwardRef<HTMLElement>((props, ref) => {
+interface ImpactFiguresProps {
+  onVisible: () => void;
+}
+
+export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
   const [currentFocusIndex, setCurrentFocusIndex] = useState(0);
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const currentRef = ref.current;
+    if (!currentRef) {
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          onVisible();
+        }
+      },
+      { threshold: 0.5 },
+    );
+
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [onVisible]);
 
   return (
     <section
@@ -46,22 +76,22 @@ const ImpactFigures = forwardRef<HTMLElement>((props, ref) => {
       className="min-h-screen flex items-center justify-center bg-white snap-start"
     >
       <div className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center text-natural-800 mb-12">
+        <h2 className="text-4xl font-bold text-center text-green-800 mb-12">
           Our Impact
         </h2>
         <div className="grid md:grid-cols-4 gap-8 mb-16">
           {impactData.map((item, index) => (
             <div key={index} className="text-center">
-              <item.icon className="h-12 w-12 mx-auto text-natural-600 mb-4" />
-              <h3 className="text-2xl font-bold text-natural-800">
+              <item.icon className="h-12 w-12 mx-auto text-green-600 mb-4" />
+              <h3 className="text-2xl font-bold text-green-800">
                 {item.value}
               </h3>
-              <p className="text-natural-600">{item.title}</p>
+              <p className="text-gray-600">{item.title}</p>
             </div>
           ))}
         </div>
-        <div className="bg-natural-100 p-8 rounded-lg">
-          <h3 className="text-2xl font-bold text-center text-natural-800 mb-8">
+        <div className="bg-gray-100 p-8 rounded-lg">
+          <h3 className="text-2xl font-bold text-center text-green-800 mb-8">
             Focus Areas
           </h3>
           <div className="relative">
@@ -74,10 +104,10 @@ const ImpactFigures = forwardRef<HTMLElement>((props, ref) => {
               >
                 {focusAreas.map((area, index) => (
                   <div key={index} className="w-full flex-shrink-0 px-4">
-                    <h4 className="text-xl font-semibold text-natural-700 mb-2">
+                    <h4 className="text-xl font-semibold text-green-700 mb-2">
                       {area.title}
                     </h4>
-                    <p className="text-natural-600">{area.description}</p>
+                    <p className="text-gray-600">{area.description}</p>
                   </div>
                 ))}
               </div>
@@ -88,24 +118,21 @@ const ImpactFigures = forwardRef<HTMLElement>((props, ref) => {
                   (prev) => (prev - 1 + focusAreas.length) % focusAreas.length,
                 )
               }
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-natural-200 p-2 rounded-full"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
             >
-              <ChevronLeft className="h-6 w-6 text-natural-800" />
+              <ChevronLeft className="h-6 w-6 text-green-800" />
             </button>
             <button
               onClick={() =>
                 setCurrentFocusIndex((prev) => (prev + 1) % focusAreas.length)
               }
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-natural-200 p-2 rounded-full"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
             >
-              <ChevronRight className="h-6 w-6 text-natural-800" />
+              <ChevronRight className="h-6 w-6 text-green-800" />
             </button>
           </div>
         </div>
       </div>
     </section>
   );
-});
-
-ImpactFigures.displayName = "ImpactFigures";
-export default ImpactFigures;
+}

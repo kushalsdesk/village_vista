@@ -1,50 +1,89 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Leaf } from "lucide-react";
+import { Leaf, AlignJustify, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "./ui/button";
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+interface NavbarProps {
+  activeSection: string;
+}
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+function DropDownMenu() {
+  return (
+    <div className="flex md:hidden">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button
+            variant={"default"}
+            className="bg-white/90 text-black font-sans"
+          >
+            <AlignJustify className="h-8 w-8" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Nav Through</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+
+          {["About", "Impact", "Updates", "Team", "Connect"].map((item) => (
+            <DropdownMenuItem key={item}>
+              <Link
+                href={`#${item.toLowerCase()}`}
+                className={`text-md flex flex-row justify-evenly items-center  space-y-2 font-semibold`}
+              >
+                <ChevronRight />
+                {item}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+}
+
+export function Navbar({ activeSection }: NavbarProps) {
+  const isLight = activeSection === "hero";
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-natural-600 shadow-md" : "bg-transparent"}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isLight ? "bg-black/15" : "bg-white"}`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="#" className="flex items-center space-x-2">
-          <Leaf
-            className={`h-6 w-6 ${isScrolled ? "text-white" : "text-natural-600"}`}
-          />
+        <Link href="#hero" className={`flex items-center space-x-2`}>
           <span
-            className={`text-xl font-bold ${isScrolled ? "text-white" : "text-natural-800"}`}
+            className={`text-xl flex flex-row space-x-2 font-bold ${isLight ? "text-white " : "text-green-800 hover:text-green-400"}`}
           >
+            <Leaf className={`h-6 w-6 text-2xl `} />
             AgriRural
           </span>
-        </a>
-        <ul className="flex space-x-4">
+        </Link>
+        <ul className="hidden md:flex space-x-4">
           {["About", "Impact", "Updates", "Team", "Connect"].map((item) => (
             <li key={item}>
-              <a
+              <Link
                 href={`#${item.toLowerCase()}`}
-                className={`text-sm font-medium hover:text-natural-300 transition-colors ${isScrolled ? "text-white" : "text-natural-800"}`}
+                className={`text-sm font-semibold ${
+                  isLight
+                    ? "text-white hover:text-green-400"
+                    : "text-green-800 hover:text-green-400"
+                }`}
               >
                 {item}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
+        <DropDownMenu />
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

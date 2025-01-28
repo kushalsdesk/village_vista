@@ -1,14 +1,29 @@
 services:
   frontend:
+    container_name: agrirual
+    image: agrirual:1.0
     build:
       context: .
       dockerfile: Dockerfile
       target: development # Use "production" for production builds
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+    restart: always
+    command: npm run dev
     environment:
       - NODE_ENV=development
-    command: ["npm", "run", "dev"]
+    volumes:
+      - .:/app:cached
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3000:3000
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./package.json
+        - action: rebuild
+          path: ./next.config.js
