@@ -7,27 +7,27 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const updates = [
   {
     title: "New Irrigation System Implemented",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg",
     date: "June 15, 2023",
   },
   {
     title: "Rural Education Program Launched",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg",
     date: "May 28, 2023",
   },
   {
     title: "Community Farm Yield Increases by 30%",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg",
     date: "May 10, 2023",
   },
   {
     title: "Partnership with Local Government Announced",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg",
     date: "April 22, 2023",
   },
   {
     title: "Sustainable Farming Workshop Success",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/placeholder.svg",
     date: "April 5, 2023",
   },
 ];
