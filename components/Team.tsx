@@ -1,5 +1,9 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import { motion } from "framer-motion";
 
 const teamMembers = [
   {
@@ -33,10 +37,8 @@ export function Team({ onVisible }: TeamProps) {
 
   useEffect(() => {
     const currentRef = ref.current;
+    if (!currentRef) return;
 
-    if (!currentRef) {
-      return;
-    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -46,30 +48,61 @@ export function Team({ onVisible }: TeamProps) {
       { threshold: 0.5 },
     );
 
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    observer.observe(currentRef);
+    return () => observer.unobserve(currentRef);
   }, [onVisible]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
+
   return (
-    <section
+    <motion.section
       ref={ref}
       id="team"
       className="min-h-screen flex items-center justify-center bg-white snap-start"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={containerVariants}
     >
-      <div className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center text-green-800 mb-12">
+      <div className="container flex flex-col items-center mx-auto px-4 py-16">
+        <motion.h2
+          variants={itemVariants}
+          className="text-4xl font-bold text-center text-green-800 mb-12"
+        >
           Meet Our Team
-        </h2>
-        <div className="grid md:grid-cols-4 gap-8">
+        </motion.h2>
+        <motion.div
+          variants={containerVariants}
+          className="mb-14 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-20"
+        >
           {teamMembers.map((member, index) => (
-            <div key={index} className="text-center">
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="text-center"
+            >
               <Image
                 src={member.image || "/placeholder.svg"}
                 alt={member.name}
@@ -81,10 +114,15 @@ export function Team({ onVisible }: TeamProps) {
                 {member.name}
               </h3>
               <p className="text-gray-600">{member.role}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          <Button className="bg-green-900 text-sm font-semibold text-white">
+            Show More
+          </Button>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

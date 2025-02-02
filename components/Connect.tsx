@@ -1,5 +1,22 @@
-import { useEffect, useRef } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Footer } from "./Footer";
 
 interface ConnectProps {
   onVisible: () => void;
@@ -7,12 +24,29 @@ interface ConnectProps {
 
 export function Connect({ onVisible }: ConnectProps) {
   const ref = useRef<HTMLElement>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    amount: "",
+    accountNumber: "",
+    ifsc: "",
+    upiId: "",
+    notes: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Donation Data:", formData);
+    alert("Thank you for your donation!");
+  };
 
   useEffect(() => {
-    const currentRef = ref.current;
-    if (!currentRef) {
-      return;
-    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -22,13 +56,13 @@ export function Connect({ onVisible }: ConnectProps) {
       { threshold: 0.5 },
     );
 
-    if (currentRef) {
-      observer.observe(currentRef);
+    if (ref.current) {
+      observer.observe(ref.current);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      if (ref.current) {
+        observer.unobserve(ref.current);
       }
     };
   }, [onVisible]);
@@ -37,32 +71,147 @@ export function Connect({ onVisible }: ConnectProps) {
     <section
       ref={ref}
       id="connect"
-      className="min-h-screen flex items-center justify-center bg-white snap-start"
+      className="relative flex flex-col bg-gradient-to-b from-white to-green-50 snap-start"
     >
-      <div className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center text-green-800 mb-12">
-          Connect With Us
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <Mail className="h-12 w-12 mx-auto text-green-600 mb-4" />
-            <h3 className="text-xl font-semibold mb-2 text-green-800">Email</h3>
-            <p className="text-gray-600">info@agriruraldev.com</p>
+      <div className="container mx-auto px-4 py-16 flex-1 flex flex-col lg:flex-row items-center justify-center gap-12">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="lg:flex-1 w-full max-w-md"
+        >
+          <Image
+            src="/donate.png"
+            alt="Helping hands united in support"
+            width={500}
+            height={500}
+            className="w-full h-auto object-contain"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="lg:flex-1 text-center lg:text-left max-w-lg"
+        >
+          <h2 className="text-3xl lg:text-5xl font-bold text-green-800 mb-6">
+            Help Us Make a
+            <span className="block text-green-600">Difference</span>
+          </h2>
+          <p className="text-gray-600 mb-8 text-lg">
+            Your contribution helps us support rural communities and sustainable
+            agriculture. Every donation makes an impact.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size="lg"
+                  className="bg-green-700 hover:bg-green-800 text-lg group"
+                >
+                  <Heart className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                  Donate via UPI
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Make a Donation</DialogTitle>
+                  <DialogDescription>
+                    Fill in the details below to make a secure donation
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        required
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="amount">Amount (₹)</Label>
+                      <Input
+                        id="amount"
+                        name="amount"
+                        type="number"
+                        required
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="upiId">UPI ID</Label>
+                      <Input
+                        id="upiId"
+                        name="upiId"
+                        required
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="notes">Notes (Optional)</Label>
+                      <Textarea
+                        id="notes"
+                        name="notes"
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full bg-green-700">
+                    Complete Donation
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-green-700 text-green-700 hover:bg-green-50 text-lg"
+                >
+                  Bank Transfer
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Bank Transfer Details</DialogTitle>
+                  <DialogDescription>
+                    Use these details to make a bank transfer
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-4 text-sm">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="font-medium">Account Name</div>
+                    <div>Agri Rural Development</div>
+                    <div className="font-medium">Account Number</div>
+                    <div>1234567890</div>
+                    <div className="font-medium">IFSC Code</div>
+                    <div>ABCD0123456</div>
+                    <div className="font-medium">Bank Name</div>
+                    <div>Sample Bank</div>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
-          <div className="text-center">
-            <Phone className="h-12 w-12 mx-auto text-green-600 mb-4" />
-            <h3 className="text-xl font-semibold mb-2 text-green-800">Phone</h3>
-            <p className="text-gray-600">+1 (555) 123-4567</p>
-          </div>
-          <div className="text-center">
-            <MapPin className="h-12 w-12 mx-auto text-green-600 mb-4" />
-            <h3 className="text-xl font-semibold mb-2 text-green-800">
-              Address
-            </h3>
-            <p className="text-gray-600">123 Rural Road, Farmville, CA 12345</p>
-          </div>
-        </div>
+        </motion.div>
       </div>
+      <Footer />
     </section>
   );
 }

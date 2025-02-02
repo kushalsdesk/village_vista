@@ -11,7 +11,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install production dependencies only in production mode
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 RUN npm install --omit=dev
 
 # Development stage
@@ -30,19 +30,19 @@ EXPOSE 3000
 ENV NODE_ENV=development
 
 # Start the application in development mode
-CMD ["npm", "run", "dev"]
+ENTRYPOINT npm run dev 
 
-# Production stage
-FROM base AS production
-
-# Copy application files
-COPY . .
-
-# Build the production application
-RUN npm run build
-
-# Expose production port
-EXPOSE 3000
-
-# Start the application in production mode
-CMD ["npm", "run", "start"]
+# # Production stage
+# FROM base AS production
+#
+# # Copy application files
+# COPY . .
+#
+# # Build the production application
+# RUN npm run build
+#
+# # Expose production port
+# EXPOSE 3000
+#
+# # Start the application in production mode
+# CMD ["npm", "run", "start"]

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const updates = [
   {
@@ -42,9 +42,8 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
 
   useEffect(() => {
     const currentSection = sectionRef.current;
-    if (!currentSection) {
-      return;
-    }
+    if (!currentSection) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -54,46 +53,68 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
       { threshold: 0.5 },
     );
 
-    if (currentSection) {
-      observer.observe(currentSection);
-    }
-
-    return () => {
-      if (currentSection) {
-        observer.unobserve(currentSection);
-      }
-    };
+    observer.observe(currentSection);
+    return () => observer.unobserve(currentSection);
   }, [onVisible]);
 
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const { current } = scrollRef;
-      if (direction === "left") {
-        current.scrollBy({ left: -200, behavior: "smooth" });
-      } else {
-        current.scrollBy({ left: 200, behavior: "smooth" });
-      }
-    }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
   };
 
   return (
-    <section
+    <motion.section
       ref={sectionRef}
       id="updates"
       className="min-h-screen flex items-center justify-center bg-white snap-start"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={containerVariants}
     >
       <div className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center text-green-800 mb-12">
+        <motion.h2
+          variants={itemVariants}
+          className="text-4xl font-bold text-center text-green-800 mb-12"
+        >
           Recent Updates
-        </h2>
-        <div className="relative">
-          <div
+        </motion.h2>
+        <motion.div className="relative" variants={itemVariants}>
+          <motion.div
             ref={scrollRef}
-            className="flex overflow-x-auto space-x-4 scrollbar-hide pb-4"
+            className="flex overflow-x-auto justify-center space-x-4 pb-4 no-scrollbar scrollbar-thumb-green-500 scrollbar-track-green-100"
+            variants={containerVariants}
           >
             {updates.map((update, index) => (
-              <div key={index} className="flex-none w-64">
-                <div className="bg-gray-100 rounded-lg shadow-md overflow-hidden">
+              <motion.div
+                key={index}
+                className="flex-none w-64"
+                variants={itemVariants}
+              >
+                <motion.div
+                  className="bg-gray-100 rounded-lg shadow-md overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                >
                   <Image
                     src={update.image || "/placeholder.svg"}
                     alt={update.title}
@@ -107,24 +128,12 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
                     </h3>
                     <p className="text-sm text-gray-600">{update.date}</p>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
-          >
-            <ChevronLeft className="h-6 w-6 text-green-800" />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full"
-          >
-            <ChevronRight className="h-6 w-6 text-green-800" />
-          </button>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
