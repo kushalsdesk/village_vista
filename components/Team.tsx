@@ -80,7 +80,7 @@ export function Team({ onVisible }: TeamProps) {
     <motion.section
       ref={ref}
       id="team"
-      className="min-h-screen flex items-center justify-center bg-white snap-start"
+      className="min-h-screen flex items-center justify-center bg-midnight-950 snap-start"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
@@ -89,7 +89,7 @@ export function Team({ onVisible }: TeamProps) {
       <div className="container flex flex-col items-center mx-auto px-4 py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-4xl font-bold text-center text-green-800 mb-12"
+          className="text-4xl font-bold text-center text-natural-100 mb-12"
         >
           Meet Our Team
         </motion.h2>
@@ -110,15 +110,15 @@ export function Team({ onVisible }: TeamProps) {
                 height={200}
                 className="rounded-full mx-auto mb-4"
               />
-              <h3 className="text-xl font-semibold text-green-800">
+              <h3 className="text-xl font-semibold text-natural-200">
                 {member.name}
               </h3>
-              <p className="text-gray-600">{member.role}</p>
+              <p className="text-natural-400">{member.role}</p>
             </motion.div>
           ))}
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Button className="bg-green-900 text-sm font-semibold text-white">
+          <Button className="bg-natural-600 text-sm font-semibold text-midnight-950 hover:bg-natural-500">
             Show More
           </Button>
         </motion.div>

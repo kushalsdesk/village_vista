@@ -30,6 +30,18 @@ const updates = [
     image: "/placeholder.svg",
     date: "April 5, 2023",
   },
+
+  {
+    title: "Sustainable Farming Workshop Success",
+    image: "/placeholder.svg",
+    date: "April 5, 2023",
+  },
+
+  {
+    title: "Sustainable Farming Workshop Success",
+    image: "/placeholder.svg",
+    date: "April 5, 2023",
+  },
 ];
 
 interface RecentUpdatesProps {
@@ -56,6 +68,22 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
     observer.observe(currentSection);
     return () => observer.unobserve(currentSection);
   }, [onVisible]);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      scrollContainer.scrollLeft += e.deltaY;
+    };
+
+    scrollContainer.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      scrollContainer.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -85,53 +113,55 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
     <motion.section
       ref={sectionRef}
       id="updates"
-      className="min-h-screen flex items-center justify-center bg-white snap-start"
+      className="min-h-screen flex items-center justify-center bg-midnight-950 snap-start"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: false, amount: 0.3 }}
       variants={containerVariants}
     >
       <div className="container mx-auto px-4 py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-4xl font-bold text-center text-green-800 mb-12"
+          className="text-4xl font-bold text-center text-natural-100 mb-12"
         >
           Recent Updates
         </motion.h2>
         <motion.div className="relative" variants={itemVariants}>
-          <motion.div
-            ref={scrollRef}
-            className="flex overflow-x-auto justify-center space-x-4 pb-4 no-scrollbar scrollbar-thumb-green-500 scrollbar-track-green-100"
-            variants={containerVariants}
-          >
-            {updates.map((update, index) => (
-              <motion.div
-                key={index}
-                className="flex-none w-64"
-                variants={itemVariants}
-              >
+          <div className="overflow-x-auto scrollbar-hide md:scrollbar-default">
+            <motion.div
+              ref={scrollRef}
+              className="flex space-x-4 pb-4"
+              variants={containerVariants}
+            >
+              {updates.map((update, index) => (
                 <motion.div
-                  className="bg-gray-100 rounded-lg shadow-md overflow-hidden"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                  key={index}
+                  className="flex-none w-64"
+                  variants={itemVariants}
                 >
-                  <Image
-                    src={update.image || "/placeholder.svg"}
-                    alt={update.title}
-                    width={300}
-                    height={200}
-                    className="w-full h-40 object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="font-semibold text-green-800 mb-2">
-                      {update.title}
-                    </h3>
-                    <p className="text-sm text-gray-600">{update.date}</p>
-                  </div>
+                  <motion.div
+                    className="bg-midnight-800 rounded-lg shadow-md overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                  >
+                    <Image
+                      src={update.image || "/placeholder.svg"}
+                      alt={update.title}
+                      width={300}
+                      height={200}
+                      className="w-full h-40 object-cover"
+                    />
+                    <div className="p-4">
+                      <h3 className="font-semibold text-natural-200 mb-2">
+                        {update.title}
+                      </h3>
+                      <p className="text-sm text-natural-400">{update.date}</p>
+                    </div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </motion.section>

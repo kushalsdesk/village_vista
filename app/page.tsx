@@ -17,7 +17,7 @@ export default function Home() {
   };
 
   return (
-    <main className="h-screen overflow-y-scroll snap-y snap-mandatory">
+    <main className="h-screen overflow-y-scroll snap-y snap-mandatory bg-natural-900 text-white">
       <Navbar activeSection={activeSection} />
       <HeroSection onVisible={() => handleSetActiveSection("hero")} />
       <AboutUs onVisible={() => handleSetActiveSection("about")} />

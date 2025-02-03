@@ -19,20 +19,20 @@ function DropDownMenu() {
   return (
     <div className="flex md:hidden">
       <DropdownMenu>
-        <DropdownMenuTrigger className="bg-white rounded-md p-2">
-          <AlignJustify className="h-5 w-5" />
+        <DropdownMenuTrigger className="bg-midnight-800 rounded-md p-2">
+          <AlignJustify className="h-5 w-5 text-natural-100" />
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="bg-white/70">
-          <div className="bg-black/20 rounded-sm">
+        <DropdownMenuContent className="bg-midnight-900/90">
+          <div className="bg-midnight-800/50 rounded-sm">
             {["About", "Impact", "Updates", "Team", "Connect"].map((item) => (
               <DropdownMenuItem key={item}>
                 <Link
                   href={`#${item.toLowerCase()}`}
-                  className="text-md flex flex-row justify-evenly items-center border-b-white space-x-2 space-y-2 font-semibold"
+                  className="text-md flex flex-row justify-evenly items-center border-b-natural-700 space-x-2 space-y-2 font-semibold text-natural-100"
                 >
                   {item}
-                  <ChevronRight />
+                  <ChevronRight className="text-natural-400" />
                 </Link>
               </DropdownMenuItem>
             ))}
@@ -51,8 +51,8 @@ export function Navbar({ activeSection }: NavbarProps) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-55 ${
-        isLight ? "bg-black/15" : "bg-white"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isLight ? "bg-midnight-950/80" : "bg-midnight-900"
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -61,11 +61,9 @@ export function Navbar({ activeSection }: NavbarProps) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className={`text-xl flex flex-row space-x-2 font-bold ${
-              isLight ? "text-white " : "text-green-800 hover:text-green-400"
-            }`}
+            className="text-xl flex flex-row space-x-2 font-bold text-natural-100"
           >
-            <Leaf className="h-6 w-6 text-2xl" />
+            <Leaf className="h-6 w-6 text-2xl text-natural-400" />
             Yuva Pragati
           </motion.span>
         </Link>
@@ -80,11 +78,7 @@ export function Navbar({ activeSection }: NavbarProps) {
               >
                 <Link
                   href={`#${item.toLowerCase()}`}
-                  className={`text-sm font-semibold ${
-                    isLight
-                      ? "text-white hover:text-green-400"
-                      : "text-green-800 hover:text-green-400"
-                  }`}
+                  className="text-sm font-semibold text-natural-200 hover:text-natural-50 transition-colors"
                 >
                   {item}
                 </Link>

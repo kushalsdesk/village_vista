@@ -7,7 +7,6 @@ import {
   SproutIcon as Seedling,
   IndianRupee,
 } from "lucide-react";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -39,13 +38,15 @@ const works = [
     description: "Ensuring sustainable water use in agriculture",
     art: "/placeholder.svg",
   },
+
   {
-    title: "Earth Management",
+    title: "Water Management",
     description: "Ensuring sustainable water use in agriculture",
     art: "/placeholder.svg",
   },
+
   {
-    title: "Earth Management",
+    title: "Water Management",
     description: "Ensuring sustainable water use in agriculture",
     art: "/placeholder.svg",
   },
@@ -57,6 +58,7 @@ interface ImpactFiguresProps {
 
 export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
   const ref = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const currentRef = ref.current;
@@ -114,22 +116,22 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
     <motion.section
       ref={ref}
       id="impact"
-      className="min-h-screen flex items-center justify-center bg-white snap-start"
+      className="min-h-screen flex items-center justify-center bg-midnight-950 snap-start"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: false, amount: 0.3 }}
       variants={containerVariants}
     >
       <div className="container mx-auto px-4 py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-4xl font-bold text-center text-green-800 mb-12"
+          className="text-4xl font-bold text-center text-natural-100 mt-2 mb-6 md:mb-12"
         >
           Our Impact
         </motion.h2>
         <motion.div
           variants={containerVariants}
-          className="grid grid-cols-4 gap-2 text-sm md:text-xl md:grid-cols-4 md:gap-8 mb-16"
+          className="grid grid-cols-2 gap-2 text-sm md:text-xl md:grid-cols-4 md:gap-8 mb-8 md:mb-16"
         >
           {impactData.map((item, index) => (
             <motion.div
@@ -137,35 +139,32 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
               className="text-center"
               variants={itemVariants}
             >
-              <item.icon className="h-12 w-12 mx-auto text-green-600 mb-4" />
+              <item.icon className="h-12 w-12 mx-auto text-natural-400 mb-4" />
               <motion.h3
-                className="text-2xl font-bold text-green-800"
+                className="text-2xl font-bold text-natural-200"
                 variants={countUpVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: false }}
               >
                 {item.value}
               </motion.h3>
-              <p className="text-gray-600">{item.title}</p>
+              <p className="text-natural-300">{item.title}</p>
             </motion.div>
           ))}
         </motion.div>
         <motion.div
           variants={itemVariants}
-          className="bg-gray-100 p-8 rounded-lg"
+          className="bg-midnight-800 p-3 lg:p-8 rounded-lg"
         >
           <motion.h3
             variants={itemVariants}
-            className="text-2xl font-bold text-center text-green-800 mb-8"
+            className="text-2xl font-bold text-center text-natural-100 mt-1 mb-4 lg:mb-8"
           >
             Focus Areas
           </motion.h3>
-          <ScrollArea className="w-full mx-auto whitespace-nowrap rounded-md border">
-            <motion.div
-              className="flex w-full space-x-4 p-4"
-              variants={containerVariants}
-            >
+          <div className="overflow-x-auto scrollbar-hide md:scrollbar-default">
+            <div ref={scrollRef} className="flex space-x-4 p-4">
               {works.map((artwork, index) => (
                 <motion.figure
                   key={artwork.title}
@@ -181,16 +180,15 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
                       height={200}
                     />
                   </div>
-                  <figcaption className="pt-2 text-xs text-muted-foreground">
-                    <span className="font-semibold text-foreground">
+                  <figcaption className="pt-2 text-xs text-natural-300">
+                    <span className="font-semibold text-natural-200">
                       {artwork.title}
                     </span>
                   </figcaption>
                 </motion.figure>
               ))}
-            </motion.div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+            </div>
+          </div>
         </motion.div>
       </div>
     </motion.section>

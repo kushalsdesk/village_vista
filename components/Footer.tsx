@@ -3,44 +3,46 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-black/10 py-8 rounded-t-md">
+    <footer className="w-full bg-midnight-950 py-8 rounded-t-md">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Contact</h3>
+            <h3 className="font-semibold text-lg text-natural-200">Contact</h3>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
+                <Mail className="h-4 w-4 text-natural-400" />
                 <a
                   href="mailto:info@agriruraldev.com"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   info@agriruraldev.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
+                <Phone className="h-4 w-4 text-natural-400" />
                 <a
                   href="tel:+15551234567"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   +1 (555) 123-4567
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <span>123 Rural Road, CA</span>
+                <MapPin className="h-4 w-4 text-natural-400" />
+                <span className="text-natural-400">123 Rural Road, CA</span>
               </li>
             </ul>
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Quick Links</h3>
+            <h3 className="font-semibold text-lg text-natural-200">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   About Us
                 </Link>
@@ -48,7 +50,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/projects"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   Our Projects
                 </Link>
@@ -56,7 +58,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/impact"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   Our Impact
                 </Link>
@@ -65,12 +67,14 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Resources</h3>
+            <h3 className="font-semibold text-lg text-natural-200">
+              Resources
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/blog"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   Blog
                 </Link>
@@ -78,7 +82,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/news"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   News
                 </Link>
@@ -86,7 +90,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/faq"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   FAQs
                 </Link>
@@ -95,12 +99,12 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Legal</h3>
+            <h3 className="font-semibold text-lg text-natural-200">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/privacy"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -108,7 +112,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -116,7 +120,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/donate"
-                  className="hover:text-green-700 transition-colors"
+                  className="text-natural-400 hover:text-natural-200 transition-colors"
                 >
                   Donation Policy
                 </Link>
@@ -125,7 +129,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-black/10 text-center text-sm text-gray-600">
+        <div className="mt-8 pt-8 border-t border-midnight-800 text-center text-sm text-natural-500">
           © {new Date().getFullYear()} Agri Rural Development. All rights
           reserved.
         </div>

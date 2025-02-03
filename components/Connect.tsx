@@ -48,9 +48,8 @@ export function Connect({ onVisible }: ConnectProps) {
 
   useEffect(() => {
     const currentRef = ref.current;
-    if (!currentRef) {
-      return;
-    }
+    if (!currentRef) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -60,22 +59,15 @@ export function Connect({ onVisible }: ConnectProps) {
       { threshold: 0.5 },
     );
 
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    observer.observe(currentRef);
+    return () => observer.unobserve(currentRef);
   }, [onVisible]);
 
   return (
     <section
       ref={ref}
       id="connect"
-      className="relative flex flex-col bg-gradient-to-b from-white to-green-50 snap-start"
+      className="relative flex flex-col bg-midnight-950 snap-start"
     >
       <div className="container mx-auto px-4 py-16 flex-1 flex flex-col lg:flex-row items-center justify-center gap-12">
         <motion.div
@@ -99,11 +91,11 @@ export function Connect({ onVisible }: ConnectProps) {
           transition={{ duration: 0.5 }}
           className="lg:flex-1 text-center lg:text-left max-w-lg"
         >
-          <h2 className="text-3xl lg:text-5xl font-bold text-green-800 mb-6">
+          <h2 className="text-3xl lg:text-5xl font-bold text-natural-100 mb-6">
             Help Us Make a
-            <span className="block text-green-600">Difference</span>
+            <span className="block text-natural-300">Difference</span>
           </h2>
-          <p className="text-gray-600 mb-8 text-lg">
+          <p className="text-natural-200 mb-8 text-lg">
             Your contribution helps us support rural communities and sustainable
             agriculture. Every donation makes an impact.
           </p>
@@ -112,16 +104,16 @@ export function Connect({ onVisible }: ConnectProps) {
               <DialogTrigger asChild>
                 <Button
                   size="lg"
-                  className="bg-green-700 hover:bg-green-800 text-lg group"
+                  className="bg-natural-500 hover:bg-natural-400 text-natural-900 text-lg group"
                 >
                   <Heart className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                   Donate via UPI
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="bg-natural-800 text-natural-100">
                 <DialogHeader>
                   <DialogTitle>Make a Donation</DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="text-natural-300">
                     Fill in the details below to make a secure donation
                   </DialogDescription>
                 </DialogHeader>
@@ -134,6 +126,7 @@ export function Connect({ onVisible }: ConnectProps) {
                         name="name"
                         required
                         onChange={handleChange}
+                        className="bg-natural-700 text-natural-100"
                       />
                     </div>
                     <div className="grid gap-2">
@@ -144,6 +137,7 @@ export function Connect({ onVisible }: ConnectProps) {
                         type="email"
                         required
                         onChange={handleChange}
+                        className="bg-natural-700 text-natural-100"
                       />
                     </div>
                     <div className="grid gap-2">
@@ -154,6 +148,7 @@ export function Connect({ onVisible }: ConnectProps) {
                         type="number"
                         required
                         onChange={handleChange}
+                        className="bg-natural-700 text-natural-100"
                       />
                     </div>
                     <div className="grid gap-2">
@@ -163,6 +158,7 @@ export function Connect({ onVisible }: ConnectProps) {
                         name="upiId"
                         required
                         onChange={handleChange}
+                        className="bg-natural-700 text-natural-100"
                       />
                     </div>
                     <div className="grid gap-2">
@@ -171,10 +167,14 @@ export function Connect({ onVisible }: ConnectProps) {
                         id="notes"
                         name="notes"
                         onChange={handleChange}
+                        className="bg-natural-700 text-natural-100"
                       />
                     </div>
                   </div>
-                  <Button type="submit" className="w-full bg-green-700">
+                  <Button
+                    type="submit"
+                    className="w-full bg-natural-500 text-natural-900"
+                  >
                     Complete Donation
                   </Button>
                 </form>
@@ -186,15 +186,15 @@ export function Connect({ onVisible }: ConnectProps) {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-green-700 text-green-700 hover:bg-green-50 text-lg"
+                  className="border-natural-500 text-natural-300 hover:bg-natural-700 text-lg"
                 >
                   Bank Transfer
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="bg-natural-800 text-natural-100">
                 <DialogHeader>
                   <DialogTitle>Bank Transfer Details</DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="text-natural-300">
                     Use these details to make a bank transfer
                   </DialogDescription>
                 </DialogHeader>
