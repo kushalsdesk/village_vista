@@ -85,7 +85,7 @@ export function HeroSection({ onVisible }: HeroSectionProps) {
     <motion.section
       ref={ref}
       id="hero"
-      className="relative h-[50vh] md:h-[60vh] flex items-center justify-center snap-start bg-midnight-950"
+      className="relative h-[50vh] md:h-[60vh] flex items-center justify-center snap-start bg-white"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}

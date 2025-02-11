@@ -116,7 +116,7 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
     <motion.section
       ref={ref}
       id="impact"
-      className="min-h-screen flex items-center justify-center bg-midnight-950 snap-start"
+      className="min-h-screen flex items-center justify-center bg-white snap-start"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}
@@ -125,7 +125,7 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
       <div className="container mx-auto px-4 py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-4xl font-bold text-center text-natural-100 mt-2 mb-6 md:mb-12"
+          className="text-4xl font-bold text-center text-natural-400 mt-2 mb-6 md:mb-12"
         >
           Our Impact
         </motion.h2>
@@ -141,7 +141,7 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
             >
               <item.icon className="h-12 w-12 mx-auto text-natural-400 mb-4" />
               <motion.h3
-                className="text-2xl font-bold text-natural-200"
+                className="text-2xl font-bold text-natural-500"
                 variants={countUpVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -149,7 +149,7 @@ export function ImpactFigures({ onVisible }: ImpactFiguresProps) {
               >
                 {item.value}
               </motion.h3>
-              <p className="text-natural-300">{item.title}</p>
+              <p className="text-natural-400">{item.title}</p>
             </motion.div>
           ))}
         </motion.div>

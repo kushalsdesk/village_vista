@@ -67,7 +67,7 @@ export function Connect({ onVisible }: ConnectProps) {
     <section
       ref={ref}
       id="connect"
-      className="relative flex flex-col bg-midnight-950 snap-start"
+      className="relative flex flex-col bg-white snap-start"
     >
       <div className="container mx-auto px-4 py-16 flex-1 flex flex-col lg:flex-row items-center justify-center gap-12">
         <motion.div
@@ -91,11 +91,11 @@ export function Connect({ onVisible }: ConnectProps) {
           transition={{ duration: 0.5 }}
           className="lg:flex-1 text-center lg:text-left max-w-lg"
         >
-          <h2 className="text-3xl lg:text-5xl font-bold text-natural-100 mb-6">
+          <h2 className="text-3xl lg:text-5xl font-bold text-natural-500 mb-6">
             Help Us Make a
             <span className="block text-natural-300">Difference</span>
           </h2>
-          <p className="text-natural-200 mb-8 text-lg">
+          <p className="text-natural-400 mb-8 text-lg">
             Your contribution helps us support rural communities and sustainable
             agriculture. Every donation makes an impact.
           </p>

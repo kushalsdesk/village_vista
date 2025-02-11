@@ -113,7 +113,7 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
     <motion.section
       ref={sectionRef}
       id="updates"
-      className="min-h-screen flex items-center justify-center bg-midnight-950 snap-start"
+      className="min-h-screen flex items-center justify-center bg-white snap-start"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}
@@ -122,7 +122,7 @@ export function RecentUpdates({ onVisible }: RecentUpdatesProps) {
       <div className="container mx-auto px-4 py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-4xl font-bold text-center text-natural-100 mb-12"
+          className="text-4xl font-bold text-center text-natural-400 mb-12"
         >
           Recent Updates
         </motion.h2>

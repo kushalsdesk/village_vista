@@ -89,7 +89,7 @@ export function AboutUs({ onVisible }: AboutUsProps) {
     <motion.section
       ref={ref}
       id="about"
-      className="min-h-screen flex items-center justify-center bg-midnight-950 snap-start"
+      className="min-h-screen flex items-center justify-center bg-white snap-start"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}
@@ -98,7 +98,7 @@ export function AboutUs({ onVisible }: AboutUsProps) {
       <div className="container mx-auto px-4 py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-4xl font-bold text-center text-natural-100 mb-12"
+          className="text-4xl font-bold text-center text-natural-400 mb-12"
         >
           Who We Are
         </motion.h2>
@@ -115,10 +115,10 @@ export function AboutUs({ onVisible }: AboutUsProps) {
               <motion.div variants={iconVariants}>
                 <item.icon className="h-16 w-16 mx-auto text-natural-400 mb-4" />
               </motion.div>
-              <h3 className="text-xl font-semibold mb-2 text-natural-200">
+              <h3 className="text-xl font-semibold mb-2 text-natural-500">
                 {item.title}
               </h3>
-              <p className="text-natural-300">{item.description}</p>
+              <p className="text-natural-400">{item.description}</p>
             </motion.div>
           ))}
         </motion.div>

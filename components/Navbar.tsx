@@ -51,9 +51,7 @@ export function Navbar({ activeSection }: NavbarProps) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isLight ? "bg-midnight-950/80" : "bg-midnight-900"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/30`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="#hero" className="flex items-center space-x-2">
